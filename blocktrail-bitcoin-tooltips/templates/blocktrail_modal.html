@@ -1,0 +1,49 @@
+<!doctype html>
+<!--
+ Modal window content, used in content script as an injected iframe (to isolate html from webpage's css styling).
+ -->
+<html>
+    <head>
+        <title>Blocktrail Overlay Modal</title>
+
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="../libs/reveal/reveal.css"/>
+        <link rel="stylesheet" href="../style.css"/>
+        <style>
+            body {
+                font-family: "Open Sans", "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+                font-size: 100%;
+            }
+            h1 {
+                font-weight: 100;
+            }
+            p {
+                color: #333;
+            }
+
+            .reveal-modal-bg {
+                background: rgba(23, 56, 68, 0.55);
+            }
+        </style>
+
+        <!--
+          - JavaScript and HTML must be in separate files: see Content Security
+          - Policy documentation[1] for details and explanation.
+          -
+          - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+         -->
+        <script src="../libs/jquery.js"></script>
+        <script src="../libs/reveal/jquery.reveal.custom.js"></script>
+        <script src="../libs/jquery.qrcode-0.11.0.min.js"></script>
+        <script src="../scripts/blocktrail-modal.js"></script>
+    </head>
+    <body>
+        <div id="btBitTipModal" class="reveal-modal">
+            <h1 class="title">Modal Title</h1>
+
+            <div class="content">Some content right here.</div>
+
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+    </body>
+</html>

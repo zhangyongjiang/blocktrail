@@ -1,0 +1,4 @@
+*.phar
+phpunit.xml
+experiments/
+vendor/

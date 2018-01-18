@@ -1,0 +1,49 @@
+<div class="modal dialog-message">
+    <div class="va">
+        <div class="va-holder">
+            <div class="va-content">
+                <form
+                    class="card card-modal card-sm"
+                    name="confirmForm"
+                    ng-submit="confirm(form.confirmValue)"
+                >
+                    <div class="item-modal-prompt-content">
+                        <ion-item
+                            class="item-modal-content-holder item-text-wrap item-borderless"
+                            ng-if="title || body">
+                            <h2 ng-if="title" class="title" ng-class="titleClass">{{ title | translate }}</h2>
+                            <p ng-if="body" class="body" ng-class="bodyClass">{{ body | translate }}</p>
+                        </ion-item>
+                        <div class="text-top-gradient"></div>
+                        <div class="text-bottom-gradient text-bottom-gradient-b1"></div>
+                    </div>
+
+                    <label class="item">
+                        <input
+                            class="form-control"
+                            type="password"
+                            placeholder="{{ placeholder | translate }}"
+                            name="password"
+                            ng-model="form.confirmValue"
+                            auto-focus
+                        >
+                    </label>
+
+                    <div class="row action-buttons">
+                        <div class="col">
+                            <button class="button button-block" ng-click="cancel()">{{ buttonCancel | translate }}
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button
+                                class="button button-block"
+                                type="submit"
+                            >{{ buttonConfirm | translate }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

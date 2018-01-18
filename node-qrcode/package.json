@@ -1,0 +1,40 @@
+{
+  "name": "qrcode",
+  "description": "QRCode / 2d Barcode api with both server side and client side support using canvas",
+  "version": "0.2.12",
+  "author": "Ryan Day <soldair@gmail.com>",
+  "keywords": [
+    "canvas",
+    "qrcode",
+    "barcode"
+  ],
+  "main": "./qrcode.js",
+  "browser":"./lib/qrcode-draw.js",
+  "homepage": "http://github.com/soldair/node-qrcode",
+  "scripts": {
+    "pretest": "node build.js",
+    "prepublish": "node build.js",
+    "test": "tap test/url.js"
+  },
+  "bin": {
+    "qrcode": "./bin/qrcode"
+  },
+  "dependencies": {
+    "qrcode-canvas": "~0.0.1",
+    "canvas": "~1.1.6"
+  },
+  "devDependencies": {
+    "express": "2.5.x",
+    "browserify": "~2.29.0",
+    "uglify-js": "1.2.x",
+    "canvasutil": "*",
+    "tap": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/soldair/node-qrcode.git"
+  },
+  "engines": {
+    "node": ">= 0.6.0"
+  }
+}

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        id="com.keith.cordova.plugin.canvascamera"
+        version="1.0.0dev">
+
+    <name>CanvasCamera</name>
+
+    <description>The purpose of the plugin is to create an platform independent javascript interface for Cordova based mobile applications to preview camera and to take picture.</description>
+    <repo>https://github.com/donaldp24/CanvasCameraPlugin.git</repo>
+    <keywords>camera, canvas camera, take photos</keywords>
+    <license>Apache 2.0</license>
+
+    <author>Donald Pae</author>
+
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+
+    <js-module src="www/CanvasCamera.js" name="CanvasCamera">
+        <clobbers target="plugin.CanvasCamera" />
+        <clobbers target="CanvasCamera" />
+    </js-module>
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="CanvasCamera">
+                <param name="ios-package" value="CanvasCamera" onload="true" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+
+        <!-- plugin header and source files -->
+        <header-file src="src/ios/CanvasCamera.h" />
+        <source-file src="src/ios/CanvasCamera.m" />
+
+        <!-- system frameworks -->
+        <framework src="AssetsLibrary.framework" weak="true" />
+        <framework src="ImageIO.framework" weak="true" />
+        <framework src="CoreImage.framework" weak="true" />
+        <framework src="CoreVideo.framework" weak="true" />
+        <framework src="CoreMedia.framework" weak="true" />
+        <framework src="CoreGraphics.framework" weak="true" />
+        <framework src="MobileCoreServices.framework" weak="true" />
+    </platform>
+	
+	 <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="CanvasCamera">
+                <param name="android-package" value="com.keith.canvascameraplugin.CanvasCamera"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+	        <activity
+	                android:name="com.keith.canvascameraplugin.CanvasCameraView"
+	                android:label="@string/app_name"
+	                android:theme="@android:style/Theme.Black.NoTitleBar">
+	        </activity>
+	</config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+			<uses-permission android:name="android.permission.RECORD_VIDEO" />
+			<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+			<uses-permission android:name="android.permission.CAMERA" />
+			
+			<uses-feature android:name="android.hardware.camera" />
+			<uses-feature android:name="android.hardware.camera.autofocus" />
+			<uses-feature android:name="android.hardware.camera.setParameters" />			
+        </config-file>
+
+        <source-file src="src/android/CanvasCamera.java" target-dir="src/com/keith/canvascameraplugin" />
+        <source-file src="src/android/CanvasCameraView.java" target-dir="src/com/keith/canvascameraplugin" />
+        
+        <source-file src="src/android/res/drawable-hdpi/camera.png" target-dir="res/drawable-hdpi"/>
+        <source-file src="src/android/res/drawable-hdpi/video_sprites_close.png" target-dir="res/drawable-hdpi"/>
+        <source-file src="src/android/res/drawable-hdpi/video_sprites_focus.png" target-dir="res/drawable-hdpi"/>
+        <source-file src="src/android/res/drawable-hdpi/video_sprites_focus_inactive.png" target-dir="res/drawable-hdpi"/>
+        <source-file src="src/android/res/drawable-hdpi/video_sprites_revert.png" target-dir="res/drawable-hdpi"/>
+        <source-file src="src/android/res/drawable-hdpi/video_sprites_revert_inactive.png" target-dir="res/drawable-hdpi"/>
+        <source-file src="src/android/res/layout/canvascamera.xml" target-dir="res/layout"/>
+        <source-file src="src/android/res/layout-land/canvascamera.xml" target-dir="res/layout-land"/>
+        <source-file src="src/android/res/values/color.xml" target-dir="res/values"/>
+        <source-file src="src/android/res/values/styles.xml" target-dir="res/values"/>
+
+    </platform>
+
+</plugin>

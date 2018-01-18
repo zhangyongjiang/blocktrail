@@ -1,0 +1,21 @@
+@import "helpers/variables";
+
+@import "../lib/bootstrap-sass/assets/stylesheets/_bootstrap";
+
+// Add our fonts
+@import "fonts/lato";
+@import "fonts/neo-sans-pro";
+@import "fonts/open-sans";
+@import "fonts/roboto";
+
+// Add fontello icons
+@import "../fontello/css/_fontello";
+
+// add other libs
+@import "../lib/ngImgCrop/source/scss/ng-img-crop.scss";
+@import "../lib/angular-toggle-switch/angular-toggle-switch.scss";
+@import "../lib/angular-toggle-switch/angular-toggle-switch-bootstrap.scss";
+
+// import our theme
+// TODO Split it
+@import "theme/index";

@@ -1,0 +1,101 @@
+{
+  "name": "blocktrail-sdk",
+  "description": "BlockTrail's Developer Friendly API binding for NodeJS",
+  "keywords": [
+    "blocktrail",
+    "bitcoin",
+    "sdk",
+    "api",
+    "blockchain",
+    "payment",
+    "bitcoin data",
+    "wallet",
+    "multi-signature",
+    "transaction"
+  ],
+  "version": "3.6.1",
+  "homepage": "https://www.blocktrail.com/api/docs/lang/nodejs",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/blocktrail/blocktrail-sdk-nodejs.git"
+  },
+  "bugs": {
+    "url": "http://github.com/blocktrail/blocktrail-sdk-nodejs/issues"
+  },
+  "engines": {
+    "node": ">= 5.10.0"
+  },
+  "main": "./main.js",
+  "browser": {
+    "./lib/backup_generator.js": "./lib/backup_generator-browser.js",
+    "./lib/pbkdf2_sha512.js": "./lib/pbkdf2_sha512-browser.js",
+    "./lib/pkginfo.js": "./lib/pkginfo-browser.js"
+  },
+  "dependencies": {
+    "assert-plus": "0.1.5",
+    "async": "0.9.0",
+    "bip39": "git://github.com/blocktrail/bip39.git#sjcl-browser-bip39",
+    "bitcoinjs-lib": "git://github.com/blocktrail/bitcoinjs-lib.git#f6a644a24afe83160969a9fb5da0cc6ffb74fd51",
+    "bitcoinjs-message": "^1.0.1",
+    "bops": "0.0.6",
+    "bowser": "^0.7.2",
+    "colors": "*",
+    "create-hash": "^1.1.0",
+    "create-hmac": "^1.1.3",
+    "crypto-js": "^3.1.5",
+    "debug": "0.8.1",
+    "lodash": "~4.17.2",
+    "pkginfo": "^0.4.1",
+    "promise": "^6.1.0",
+    "q": "1.0.1",
+    "randombytes": "^2.0.1",
+    "sjcl": "git://github.com/blocktrail/sjcl.git#minify-library",
+    "superagent": "^0.21.0",
+    "superagent-http-signature": "0.1.3",
+    "superagent-promise": "^0.2.0",
+    "webworkify": "^1.4.0"
+  },
+  "author": {
+    "name": "Ruben de Vries <ruben@blocktrail.com>"
+  },
+  "contributors": [
+    {
+      "name": "Ruben de Vries",
+      "email": "ruben@blocktrail.com"
+    },
+    {
+      "name": "Oisin Akiboye Conolly",
+      "email": "oisin@blocktrail.com"
+    }
+  ],
+  "devDependencies": {
+    "blocktrail-sdk-backup-generator": "0.1.0",
+    "brfs": "*",
+    "browserify": "*",
+    "browserify-versionify": "^1.0.6",
+    "coveralls": "^2.13.1",
+    "grunt": "~0.4.2",
+    "grunt-browserify": "git://github.com/jmreidy/grunt-browserify.git#4f96beb75d27fdebc4359e08e7db4c514f6265a8",
+    "grunt-contrib-concat": "~0.5.1",
+    "grunt-contrib-connect": "^0.7.1",
+    "grunt-contrib-uglify": "^3.2.1",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-exec": "^1.0.1",
+    "grunt-notify": "~0.2.17",
+    "grunt-saucelabs": "git://github.com/blocktrail/grunt-saucelabs.git#92615f964444a7f304bfee41cb13627b0457f85d",
+    "grunt-template": "^1.0.0",
+    "jscs": "~3.0.7",
+    "jshint": "~2.9.1",
+    "mocha": "*",
+    "nyc": "^11.2.1",
+    "watchify": "*"
+  },
+  "scripts": {
+    "test": "mocha",
+    "coverage-test": "nyc --reporter=html --reporter=text mocha",
+    "browserify": "grunt build",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "lint": "./node_modules/jscs/bin/jscs main.js lib/ test/ && ./node_modules/jscs/bin/jscs main.js main.js lib/ test/"
+  }
+}

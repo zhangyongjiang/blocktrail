@@ -1,0 +1,31 @@
+<div
+        class="appPage page-blur"
+        ng-class="{'page-blur-active': isLoading}"
+>
+        <!-- Settings Tabs -->
+        <ul class="nav nav-tabs" style="font-size: 18px">
+            <li ng-class="{ 'active' : $state.includes('app.wallet.settings.profile') }">
+                <a href ui-sref="app.wallet.settings.profile">{{ 'SETTINGS_PROFILE' | translate }}</a>
+            </li>
+            <li ng-class="{ 'active' : $state.includes('app.wallet.settings.security') }">
+                <a href ui-sref="app.wallet.settings.security">{{ 'SETTINGS_SECURITY' | translate }}</a>
+            </li>
+            <li ng-class="{ 'active' : $state.includes('app.wallet.settings.tools') }">
+                <a href ui-sref="app.wallet.settings.tools">{{ 'SETTINGS_TOOLS' | translate }}</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active">
+                <div ui-view="settingsView"></div>
+            </div>
+        </div>
+
+    <!-- Loader overlay -->
+    <div
+            class="page-loader"
+            ng-class="{'active': isLoading}"
+    >
+        <loading-spinner></loading-spinner>
+    </div>
+</div>

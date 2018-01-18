@@ -1,0 +1,15 @@
+<ion-view class="state-settings state-profile">
+    <ion-nav-title class="">{{ 'SETTINGS_PROFILE' | translate }}</ion-nav-title>
+    <ion-nav-buttons side="right">
+        <div class="button hide"
+             nav-direction="back"
+             ng-click="$btBackButtonDelegate.goBack()">{{ 'CANCEL' | translate }}
+        </div>
+    </ion-nav-buttons>
+
+    <ion-content scroll="true">
+        <div class="card">
+            <profile-picture is-show-remove-button="true"></profile-picture>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,36 @@
+<div class="item item-body profile-picture">
+    <div class="profile-avatar-holder" ng-click="takePic()">
+        <profile-avatar
+            settings-data="settingsData"
+        ></profile-avatar>
+    </div>
+
+    <p>{{ 'SETTINGS_PROFILE_DESCRIPTION' | translate }}</p>
+
+    <div class="row action-buttons">
+        <div
+            ng-if="isShowRemoveButton && settingsData.profilePic"
+            class="col"
+        >
+            <button
+                class="button button-block action-button-icon ion-trash-b"
+                ng-click="removePic()"
+            >
+            </button>
+        </div>
+        <div class="col">
+            <button
+                class="button button-block action-button-icon ion-images"
+                ng-click="choosePic()"
+            >
+            </button>
+        </div>
+        <div class="col">
+            <button
+                class="button button-block action-button-icon ion-camera"
+                ng-click="takePic()"
+            >
+            </button>
+        </div>
+    </div>
+</div>

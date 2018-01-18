@@ -1,0 +1,72 @@
+{
+  "manifest_version": 2,
+
+  "name": "Blocktrail Bitcoin Tooltips",
+  "short_name": "Blocktrail Bit-Tips",
+  "description": "View live Bitcoin information for addresses embedded in any webpage",
+  "version": "0.0.5",
+  "author": "Oisin Conolly",
+
+  "browser_action": {
+    "default_icon": "images/icon-small.png",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "permissions": [
+    "activeTab",
+    "contextMenus",
+    "*://api.blocktrail.com/"
+  ],
+  "icons": {
+    "16": "images/icon-bitty.png",
+    "48": "images/icon-small.png",
+    "128": "images/icon-large.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "css": [
+        "style.css"
+      ],
+      "js": [
+        "libs/jquery.js"
+      ]
+    },
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "exclude_matches": ["*://*.blocktrail.com/*"],
+      "css": [
+        "libs/jquery.qtip.min.css",
+        "libs/reveal/reveal.css",
+        "style.css"
+      ],
+      "js": [
+        "libs/jquery.qtip.min.js",
+        "libs/jquery.bt-bitcoin-tooltips.js",
+        "scripts/tooltips.js"
+      ]
+    },
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "css": [
+        "libs/reveal/reveal.css",
+        "style.css"
+      ],
+      "js": [
+        "libs/reveal/jquery.reveal.custom.js",
+        "libs/lodash.min.js",
+        "libs/jquery.qrcode-0.11.0.min.js",
+        "scripts/modal-injector.js"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    "templates/*"
+  ],
+  "manifest_version": 2
+}

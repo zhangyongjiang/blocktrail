@@ -1,0 +1,54 @@
+.state-settings {
+    background: $lightgray-dark;
+
+    .scroll-content {
+        background: $lightgray-dark;
+
+        .group-title {
+            margin: 20px 10px 10px 14px;
+            padding: 0;
+            font-size: 16px;
+            font-weight: lighter;
+            color: $darkgray-light;
+        }
+
+        .list-inset {
+            margin: 0 10px 35px 10px;
+            box-shadow: -1px 1px 3px rgba(0, 0, 0, 0.05);
+        }
+    }
+
+    .display-name {
+        margin: 0 15px;
+    }
+
+    .settings-avatar-holder {
+        top: -3px;
+        bottom: -4px;
+        width: 40px;
+        height: 40px;
+        position: relative;
+
+        .profile-avatar {
+            display: block;
+            width: 40px;
+            height: 40px;
+
+            .initials {
+                font-size: 28px;
+                line-height: 40px;
+            }
+        }
+    }
+
+    .range {
+        position: relative;
+        margin: 0 -10px;
+
+        input {
+            padding-left: 2px;
+            padding-right: 2px;
+        }
+    }
+}
+

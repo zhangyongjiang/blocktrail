@@ -1,0 +1,51 @@
+{
+  "name": "node-dbi",
+  "description": "A Database abstraction layer for Node.js, bundled with several DB engines adapters",
+  "version": "0.7.1",
+  "homepage": "https://github.com/DrBenton/Node-DBI",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/DrBenton/Node-DBI.git"
+  },
+  "authors": [
+    "Olivier Philippon (http://github.com/DrBenton)",
+    "Michael Dwyer (http://github.com/kalifg)",
+    "David Schoen <dave@lyte.id.au>",
+    "Fabian Bornhofen (http://fabianbornhofen.blogspot.com)"
+  ],
+  "main": "dbWrapper.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "dependencies": {
+    "async": "",
+    "lodash": "~2.4.1"
+  },
+  "devDependencies": {
+    "mocha": "~1.17.0",
+    "chai": "~1.8.1",
+    "sqlite3": "~2.1.19",
+    "mysql": "~2.0.0",
+    "mysql-libmysqlclient": "~1.5.2",
+    "pg": "~2.11.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "database",
+    "SQL",
+    "abstraction",
+    "common",
+    "mysql",
+    "sqlite",
+    "pg",
+    "postgres",
+    "postgresql"
+  ],
+  "engines": {
+    "node": ">= 0.8"
+  },
+  "# vim: ts=2 sw=2 et ": null
+}

@@ -1,0 +1,20 @@
+.profile-picture {
+    text-align: center;
+
+    .profile-avatar-holder {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+
+        .profile-avatar {
+            display: block;
+            width: 150px;
+            height: 150px;
+
+            .initials {
+                font-size: 120px;
+                line-height: 150px;
+            }
+        }
+    }
+}

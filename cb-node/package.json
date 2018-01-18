@@ -1,0 +1,33 @@
+{
+  "name": "cb-node",
+  "version": "3.0.3",
+  "description": "common blockchain wrapper for common-blockchain-node-server",
+  "main": "./index.js",
+  "scripts": {
+    "coverage": "istanbul cover _mocha -- test/*.js --timeout 10000",
+    "coveralls": "npm run coverage && coveralls < coverage/lcov.info",
+    "standard": "standard",
+    "test": "istanbul test mocha -- --reporter list test/*.js --timeout 10000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/common-blockchain/cb-node.git"
+  },
+  "author": "Daniel Cousens",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/common-blockchain/cb-node/issues"
+  },
+  "homepage": "https://github.com/common-blockchain/cb-node",
+  "devDependencies": {
+    "cb-tester": "^0.2.x",
+    "coveralls": "^2.11.2",
+    "istanbul": "^0.3.5",
+    "mocha": "^2.1.0",
+    "standard": "^2.7.3"
+  },
+  "dependencies": {
+    "httpify": "^1.0.0",
+    "jsend": "^0.1.2"
+  }
+}

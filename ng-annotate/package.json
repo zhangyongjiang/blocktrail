@@ -1,0 +1,40 @@
+{
+  "name": "ng-annotate",
+  "version": "0.7.2",
+  "description": "add, remove and rebuild angularjs dependency injection annotations",
+  "main": "build/es5/ng-annotate-main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olov/ng-annotate.git"
+  },
+  "dependencies": {
+    "ast-traverse": "~0.1.1",
+    "alter": "~0.2.0",
+    "simple-fmt": "~0.1.0",
+    "simple-is": "~0.2.0",
+    "tryor": "~0.1.2",
+    "esprima": "~1.2.0",
+    "optimist": "~0.6.1"
+  },
+  "devDependencies": {
+    "diff": "~1.0.8"
+  },
+  "keywords": [
+    "angular",
+    "angularjs",
+    "di",
+    "dependency",
+    "injection",
+    "annotate",
+    "annotation",
+    "annotations",
+    "non-intrusive",
+    "transformation"
+  ],
+  "scripts": {
+    "test": "node --harmony run-tests"
+  },
+  "bin": "./build/es5/ng-annotate",
+  "author": "Olov Lassus <olov.lassus@gmail.com>",
+  "license": "MIT"
+}

@@ -1,0 +1,174 @@
+<ion-view class="state-settings">
+    <ion-nav-title class="">{{ 'SETTINGS' | translate }}</ion-nav-title>
+
+    <ion-content>
+        <form>
+            <h3 class="group-title">{{ 'SETTINGS_INFO' | translate }}</h3>
+
+            <div class="list list-inset">
+                <!-- About -->
+                <div class="item item-button-right" ui-sref=".about">
+                    <span class="sentence-case">{{ 'SETTINGS_ABOUT' | translate }}</span>
+                    <button class="button button-clear">
+                        <small>v{{ appVersion }}</small>
+                        <i class="icon ion-chevron-right iil-15"></i>
+                    </button>
+                </div>
+                <!-- FAQ -->
+                <a class="item item-button-right" href="https://btc.com/faq" browse-to>
+                    <span class="sentence-case">{{ 'SETTINGS_FAQ' | translate }}</span>
+                    <button class="button button-clear">
+                        <i class="icon ion-chevron-right iil-15"></i>
+                    </button>
+                </a>
+                <!-- Feedback -->
+                <div class="item item-button-right" ui-sref=".feedback">
+                    <span class="sentence-case">{{ 'SEND_FEEDBACK' | translate }}</span>
+                    <button class="button button-clear">
+                        <i class="icon ion-chevron-right iil-15"></i>
+                    </button>
+                </div>
+            </div>
+
+            <h3 class="group-title">{{ 'SETTINGS_ACCOUNT' | translate }}</h3>
+
+            <div class="list list-inset">
+                <!-- Profile -->
+                <div class="item item-button-right" ui-sref=".profile">
+                    <span class="sentence-case">{{ 'SETTINGS_PROFILE' | translate }}</span>
+                    <button class="button button-clear">
+                        <span class="settings-avatar-holder">
+                            <profile-avatar
+                                settings-data="settingsData"
+                            ></profile-avatar>
+                        </span>
+                        <i class="icon ion-chevron-right iil-15"></i>
+                    </button>
+                </div>
+                <!-- Currency -->
+                <div class="item item-button-right" ng-click="onSetCurrency()">
+                    <span class="sentence-case">{{ 'SETTINGS_CURRENCY' | translate }}</span>
+                    <button class="button button-clear">
+                        <small>{{ settingsData.localCurrency }}</small>
+                        <i class="icon ion-chevron-right iil-15"></i>
+                    </button>
+                </div>
+                <!-- Language -->
+                <div class="item item-button-right" ng-click="onSetLanguage()">
+                    <span class="sentence-case">{{ 'SETTINGS_LANGUAGE' | translate }}</span>
+                    <button class="button button-clear">
+                        <small>{{ languageName | translate }}</small>
+                        <i class="icon ion-chevron-right iil-15"></i>
+                    </button>
+                </div>
+                <!-- Wallet backup not saved -->
+                <div ng-if="!isWalletBackupSaved" class="item item-button-right" ui-sref=".backup">
+                    <span class="sentence-case">{{ 'SETTINGS_WALLET_BACKUP' | translate }}</span>
+                    <button class="button button-clear">
+                        <small class="text-bad">{{ "SETTINGS_BACKUP_INCOMPLETE" | translate }}</small>
+                        <i class="icon ion-chevron-right iil-15"></i>
+                    </button>
+                </div>
+                <!-- Wallet backup saved -->
+                <div ng-if="isWalletBackupSaved" class="item item-button-right" ng-click="onWalletBackupSaved()">
+                    <span class="sentence-case">{{ 'SETTINGS_WALLET_BACKUP' | translate }}</span>
+                    <button class="button button-clear">
+                        <small>{{ "SETTINGS_BACKUP_COMPLETE" | translate }}</small>
+                        <i class="icon ion-chevron-right iil-15"></i>
+                    </button>
+                </div>
+            </div>
+
+            <h3 class="group-title">{{ 'SETTINGS_PRIVACY' | translate }}</h3>
+
+            <div class="list list-inset">
+                <!-- Is pin on open -->
+                <div class="item item-toggle">
+                    <span class="sentence-case">{{ 'SETTINGS_PIN_ON_OPEN' | translate }}</span>
+                    <label class="toggle toggle-balanced">
+                        <input
+                            type="checkbox"
+                            ng-model="formLocalSettings.isPinOnOpen"
+                            ng-model-options="{ debounce: 150 }"
+                        >
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+                <!-- Change pin -->
+                <div class="item item-button-right" ng-click="onChangePin()">
+                    <span class="sentence-case">{{ 'SETTINGS_CHANGE_PIN' | translate }}</span>
+                    <button class="button button-clear">
+                        <i class="icon ion-chevron-right iil-15"></i>
+                    </button>
+                </div>
+                <!-- Forgot pin -->
+                <div class="item item-button-right" ng-click="onForgotPin()">
+                    <span class="sentence-case">{{ 'SETTINGS_FORGOT_PIN' | translate }}</span>
+                    <button class="button button-clear">
+                        <i class="icon ion-chevron-right iil-15"></i>
+                    </button>
+                </div>
+            </div>
+
+            <h3 class="group-title">{{ 'SETTINGS_DISPLAY' | translate }}</h3>
+
+            <div class="list list-inset">
+                <div class="item ">
+                    <p>
+                        <small>{{ 'SETTINGS_BTC_DECIMALS' | translate }}</small>
+                        <small class="pull-right">{{ formLocalSettings.btcPrecision }}</small>
+                    </p>
+                    <div class="range range-positive">
+                        <input
+                            type="range"
+                            name="volume"
+                            step="1"
+                            min="0"
+                            max="8"
+                            ng-model="formLocalSettings.btcPrecision"
+                            ng-model-options="{ debounce: 150 }"
+                        >
+                    </div>
+                    <div class="text-center">
+                        <small>{{ (walletData.balance != null && walletData.balance + walletData.uncBalance || 0) | satoshiToCoin: walletData.networkType : formLocalSettings.btcPrecision : false : 'hide' }}</small>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="group-title">{{ 'SETTINGS_PHONE' | translate }}</h3>
+
+            <div class="list list-inset">
+                <!-- Phone -->
+                <div class="item item-button-right" ui-sref=".phone">
+                    <span class="sentence-case">{{ 'SETTINGS_PHONE_NUMBER' | translate }}</span>
+                    <button class="button button-clear">
+                        <small ng-if="!localSettingsData.phoneHash && !localSettingsData.isPhoneVerified">{{ 'NONE' | translate }}</small>
+                        <small ng-if="localSettingsData.phoneHash && !localSettingsData.isPhoneVerified">{{ 'SETTINGS_PHONE_UNVERIFIED' | translate }}</small>
+                        <small ng-if="!localSettingsData.phoneHash && localSettingsData.isPhoneVerified">{{ 'SETTINGS_PHONE_VERIFIED' | translate }}</small>
+                        <i class="icon ion-chevron-right iil-15"></i>
+                    </button>
+                </div>
+                <!-- Contacts -->
+                <div class="item item-button-right" ng-click="onSetContacts()">
+                    <span class="sentence-case">{{ 'CONTACTS' | translate }}</span>
+                    <button class="button button-clear">
+                        <small ng-if="localSettingsData.isEnableContacts">{{ 'ENABLED' | translate }}</small>
+                        <small ng-if="!localSettingsData.isEnableContacts">{{ 'DISABLED' | translate }}</small>
+                        <i class="icon ion-chevron-right iil-15"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="list list-inset">
+                <!-- Logout -->
+                <div class="item ">
+                    <button class="button button-block button-assertive" ng-click="onLogout()">
+                        {{ 'LOGOUT' | translate }}
+                    </button>
+                </div>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

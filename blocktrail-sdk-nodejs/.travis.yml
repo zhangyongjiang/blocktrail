@@ -1,0 +1,45 @@
+language: node_js
+
+branches:
+  only: 
+   - master
+
+node_js:
+ - '5.11'
+ - '6.3.0'
+ - '7.1.0'
+ - 'node'
+
+matrix:
+  include:
+  - node_js: 5.11
+    env: SAUCELABS=true
+  - node_js: 5.11
+    env: COVERAGE=true
+
+before_install:
+ - git submodule update --init --recursive
+ - npm install -g grunt-cli
+
+script:
+ - if [ "$SAUCELABS" != "true" ]; then npm run coverage-test; fi
+ - if [ "$SAUCELABS" = "false" ]; then node ./node_modules/jshint/bin/jshint main.js lib/ test/; fi
+ - if [ "$SAUCELABS" = "false" ]; then node ./node_modules/jscs/bin/jscs main.js lib/ test/; fi
+ - if [ "$SAUCELABS" = "true" ]; then grunt build; fi
+ - if [ "$SAUCELABS" = "true" ]; then grunt test-browser; fi
+
+after_success: 
+ - if [ "$COVERAGE" = "true" ]; then npm run coverage; fi
+
+env:
+  global:
+   - secure: NE2he5OpsNa9PGxCupBpYJ/+B7n5CfHlGAs6dE/Zc7gDVCykTDxOsQUzykc2CBSKknlzlZZXfjLr3CfVcQCFGxx1Sy3ngSztCyv3zQm3yex8DlKLL1vjpI8dHejYaF801fS1BUkGKOG7g8omcGtQDz8uI0eVAkm3PjnWnQRGJ+4=
+   - secure: "echRP+/qe3wm+mQZH+HbsFQBCbO/M78NR0MAjyAwSyi+0F0Wbh4B+gjHWL8oitzChahF1UVNdLX0QgRke4buBKzEKF+0dmctg1eqSTNn3sghK4Tg5G5RQwD26+k3aW4WUo3u5Rte36R3OC4msb221RC3MIo8CNGMzuq7lkp8dx4="
+   - secure: "Lhdu+nqYD1Cmi23mLlmE3gS3Gm9NLLudNdpfJGKSkAuLI0tEgaWgmnL0t4icVelDl1CMQTk1X9xjePjQHhq+UeBlfjS/4egVQX7i8woYKiGBjmWebLT+6enq1TUSyC24RfM24AH0IyLGwkrpFBhvKfEycFssqReqIGyTycrw+n4="
+   - secure: "YiEEOJHjwIf26XqE7e10N+eQb7Ns96Lj6oIxENBaa+5NYWU32F2Pjq+T5f3t15C0/OC0VOnXd1CnRhjzsKq31tAdhK9xN5jSKd8/MiiwpCg6Gq98ZWkmic0NKyEgwziU5WaAYxnFEGfrlyC6QF1JUE0UQhTdmYsFJ8xnf/Obbaw="
+  matrix:
+   - SAUCELABS=false
+
+notifications:
+  slack:
+    secure: gybn0stlysc78PYGwAxLGKQuwilHsViQe7fQ9VZTnKw8XQ4qdWxZC7Gk3Sg6XNntCSFYT8bSAO8LDQsT0yutODJ1ErxGuMRuJElSktRr5ylerWgzXbcpDyCA+hI1tzso94ITLTOamw9tGn8FyGvhMAMkByLZYpzuMjiWn+5BbzI=

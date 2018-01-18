@@ -1,0 +1,151 @@
+<ion-view class="state-settings state-phone">
+    <ion-nav-title class="">{{ 'SETTINGS_PHONE_NUMBER' | translate }}</ion-nav-title>
+    <ion-nav-buttons side="right">
+        <div class="button hide"
+             nav-direction="back"
+             ng-click="$btBackButtonDelegate.goBack()">{{ 'CANCEL' | translate }}
+        </div>
+    </ion-nav-buttons>
+
+    <ion-content scroll="true">
+        <div class="card">
+            <!-- Phone / Phone Update -->
+            <div ng-if="!localSettingsData.phoneHash && !localSettingsData.isPhoneVerified">
+                <form
+                    class="form-phone"
+                    name="formPhone"
+                    ng-submit="onSubmitFormPhone(formPhone)"
+                    novalidate
+                >
+                    <!-- Country -->
+                    <div class="item item-body item-borderless iit-5 iib-5">
+                        <p>{{ 'SETTINGS_PHONE_DESCRIPTION' | translate }}</p>
+
+                        <div class="row country-code">
+                            <div class="col">
+                                <span ng-if="formData.phoneCountry">
+                                    <span class="uppercase">{{ formData.phoneCountry }}</span> (+{{ getCountryCode(formData.phoneCountry) }})
+                                </span>
+                            </div>
+                            <div class="col">
+                                <button
+                                    type="button"
+                                    class="button button-small pull-right"
+                                    ng-click="onSetCountry()"
+                                >{{ 'SETTINGS_PHONE_CHANGE_COUNTRY' | translate }}</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Number -->
+                    <div class="item item-body item-borderless iit-5 iib-5">
+                        <label class="item-input-wrapper">
+                            <i class="icon ion-ios-telephone placeholder-icon"></i>
+                            <input
+                                type="tel"
+                                placeholder="{{ 'SETTINGS_PHONE_PLACEHOLDER' | translate }}"
+                                name="phone"
+                                ng-model="formData.phoneNumber"
+                                required
+                            >
+                        </label>
+                    </div>
+
+                    <!-- Submit button -->
+                    <div class="row action-buttons iit-15">
+                        <div class="col">
+                            <button
+                                type="submit"
+                                class="button button-block"
+                            >{{ 'CONFIRM' | translate }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Phone not verified -->
+            <div ng-if="localSettingsData.phoneHash && !localSettingsData.isPhoneVerified">
+                <form
+                    class="form-confirm-phone"
+                    name="formVerifyPhone"
+                    ng-submit="onSubmitFormVerifyPhone(formVerifyPhone)"
+                    novalidate
+                >
+                    <div class="item item-body item-borderless iib-5">
+                        <p>
+                            <span>{{ 'SETTINGS_PHONE' | translate }}:</span>
+                            <span>(+{{ getCountryCode(localSettingsData.phoneCountry) }}) {{ localSettingsData.phoneNumber }}</span>
+                            <span class="pull-right">{{ 'SETTINGS_PHONE_UNVERIFIED' | translate }}</span>
+                        </p>
+                        <p>{{ 'MSG_PHONE_CODE_SENT' | translate }}</p>
+                    </div>
+
+                    <!-- Button reset / resend -->
+                    <div class="row action-buttons">
+                        <div class="col">
+                            <button
+                                type="button"
+                                class="button button-block"
+                                ng-click="onUpdatePhone()"
+                            >{{ 'SETTINGS_PHONE_UPDATE' | translate }}
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button
+                                type="button"
+                                class="button button-block"
+                                ng-click="onResendPhone()"
+                            >{{ 'SETTINGS_PHONE_RESEND' | translate }}
+                            </button>
+                        </div>
+                    </div>
+
+                    <label class="item">
+                        <input
+                            type="tel"
+                            placeholder="{{ 'SETTINGS_TOKEN_PLACEHOLDER' | translate }}"
+                            name="token"
+                            ng-model="formDataVerifyPhone.token"
+                            required
+                        >
+                    </label>
+
+                    <!-- Submit button -->
+                    <div class="row action-buttons iit-15">
+                        <div class="col">
+                            <button
+                                type="submit"
+                                class="button button-block"
+                            >{{ 'CONFIRM' | translate }}
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- Phone verified -->
+            <div ng-if="!localSettingsData.phoneHash && localSettingsData.isPhoneVerified">
+                <div class="item item-body iit-5">
+                    <p>
+                        <span class="current-phone">{{ 'SETTINGS_PHONE' | translate }}:</span>
+                        <span>(+{{ getCountryCode(localSettingsData.phoneCountry) }}) {{ localSettingsData.phoneNumber }}</span>
+                        <span class="pull-right">{{ 'SETTINGS_PHONE_VERIFIED' | translate }}</span>
+                    </p>
+                </div>
+                <!-- Submit button -->
+                <div class="row action-buttons">
+                    <div class="col">
+                        <button
+                            type="button"
+                            class="button button-block"
+                            ng-click="onRemovePhone()"
+                        >{{ 'SETTINGS_PHONE_REMOVE' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

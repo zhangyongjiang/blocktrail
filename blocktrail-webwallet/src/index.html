@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>BTC.com - Wallet for Bitcoin and Bitcoin Cash</title>
+        <meta name="description" content="Send, receive and securely store your Bitcoin and Bitcoin Cash. BTC.com wallet is available on web, iOS and Android" />
+
+        <link rel='icon' href='<%= STATICSURL %>/favicon.ico' type='image/x-icon'>
+        <link rel='shortcut icon' href='<%= STATICSURL %>/favicon.ico' type='image/x-icon'>
+
+        <link crossorigin="anonymous"
+              <% if (SRI) { %>integrity="sha256-<%= SRI['css/app.css'] %>"<% } %>
+              href="<%= STATICSURL %>/css/app.css" rel="stylesheet">
+
+        <script>
+            window.supportsIndexedDB = null;
+            (function checkSupportsIndexedDB() {
+                var bootstrapAngular = function() {
+                    // keep checking if we're ready to bootstrap (once supportsIndexedDB is set)
+                    //  and then bootstrap angular
+                    var check = setInterval(function() {
+                        if (window.supportsIndexedDB !== null) {
+                            clearInterval(check);
+                            angular.bootstrap(document, ['blocktrail.wallet']);
+                        }
+                    }, 5);
+                };
+
+                // attack onload handler to bootstrap angular once we're ready
+                if (window.attachEvent != null) {
+                    window.attachEvent('onload', bootstrapAngular);
+                } else {
+                    window.addEventListener('load', bootstrapAngular, false);
+                }
+                
+                // check if we can use indexedDB
+                var _supportsIndexedDB = null;
+                try {
+                    var indexedDB = indexedDB || this.indexedDB || this.webkitIndexedDB ||
+                        this.mozIndexedDB || this.OIndexedDB ||
+                        this.msIndexedDB;
+
+                    // attempt to open a test DB
+                    var test = indexedDB.open('_idb_spec_test', 1);
+
+                    // onsuccess we know for sure we can use it
+                    test.onsuccess = function() {
+                        _supportsIndexedDB = true;
+                    };
+                    // onerror we know for sure we can't use it
+                    test.onerror = function() {
+                        _supportsIndexedDB = false;
+                    };
+                } catch (e) {
+                    // if an error is thrown we know for sure we can't use it
+                    _supportsIndexedDB = false;
+                }
+
+                // keep checking if either the sucess or failure cases have set _supportsIndexedDB
+                //  and then set window.supportsIndexedDB
+                var check = setInterval(function() {
+                    if (_supportsIndexedDB !== null) {
+                        window.supportsIndexedDB = _supportsIndexedDB;
+                        clearInterval(check);
+                    }
+                }, 5);
+            })();
+        </script>
+    </head>
+
+    <body ng-class="getBodyClasses()">
+        <div class="bodyViewContainer" ui-view>
+
+            <div class="loading-page">
+                <div class="loading-spinner loading-spinner-lg">
+                    <div class="loading loading-0"></div>
+                    <div class="loading loading-1"></div>
+                    <div class="loading loading-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <script crossorigin="anonymous"
+                <% if (SRI) { %>integrity="sha256-<%= SRI['js/libs.js'] %>"<% } %>
+                src="<%= STATICSURL %>/js/libs.js"></script>
+
+        <script crossorigin="anonymous"
+            <% if (SRI) { %>integrity="sha256-<%= SRI['js/asmcrypto.js'] %>"<% } %>
+        src="<%= STATICSURL %>/js/asmcrypto.js"></script>
+        <script>
+            function onLoadWorkerLoadAsmCrypto(worker) {
+                worker.postMessage({
+                    method: 'importScripts',
+                    <% if (!APPCONFIG.CDN) { %>
+                    script: document.location.protocol + '//' + document.location.host + '/' + "<%= STATICSURL %>/js/asmcrypto.js"
+                    <% } else { %>
+                    script: "<%= STATICSURL %>/js/asmcrypto.js"
+                    <% } %>
+                });
+            }
+        </script>
+
+        <script crossorigin="anonymous"
+                <% if (SRI) { %>integrity="sha256-<%= SRI['js/sdk.js'] %>"<% } %>
+                src="<%= STATICSURL %>/js/sdk.js"></script>
+
+        <script crossorigin="anonymous"
+                <% if (SRI) { %>integrity="sha256-<%= SRI['js/config.js'] %>"<% } %>
+                src="<%= STATICSURL %>/js/config.js"></script>
+
+        <script crossorigin="anonymous"
+                <% if (SRI) { %>integrity="sha256-<%= SRI['js/translations.js'] %>"<% } %>
+                src="<%= STATICSURL %>/js/translations.js"></script>
+
+        <% if (APPCONFIG.SENTRY_TRACKING_URL) { %>
+        <script>
+            Raven
+                .config('<%= APPCONFIG.SENTRY_TRACKING_URL %>', {release: '<%= APPCONFIG.VERSION %>', dataCallback: function(data) {
+                    data.request.url = data.request.url.replace(/([&?])token=.+?[&]/, "$1");
+                    if (data.stacktrace) {
+                        data.stacktrace.frames.forEach(function(frame) {
+                            frame.filename = frame.filename.replace(/([&?])token=.+?[&]/, "$1");
+                        });
+                    }
+                    return data;
+                }})
+                .addPlugin(Raven.Plugins.Angular)
+                .install();
+        </script>
+        <% } else { %>
+            <script>
+                // unset Raven because we won't be initializing it
+                window.Raven = null;
+            </script>
+        <% } %>
+
+        <script crossorigin="anonymous"
+                <% if (SRI) { %>integrity="sha256-<%= SRI['js/templates.js'] %>"<% } %>
+                src="<%= STATICSURL %>/js/templates.js"></script>
+        <script crossorigin="anonymous"
+                <% if (SRI) { %>integrity="sha256-<%= SRI['js/app.js'] %>"<% } %>
+                src="<%= STATICSURL %>/js/app.js"></script>
+        <script crossorigin="anonymous"
+                <% if (SRI) { %>integrity="sha256-<%= SRI['js/zxcvbn.js'] %>"<% } %>
+                src="<%= STATICSURL %>/js/zxcvbn.js"></script>
+
+        <% if (APPCONFIG.FBTRACKING_ID) { %>
+        <!-- Facebook Pixel Code -->
+        <script>
+            !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+                n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+                t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+                    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+            fbq('init', '<%= APPCONFIG.FBTRACKING_ID %>');
+            fbq('track', "PageView");</script>
+        <noscript><img height="1" width="1" style="display:none"
+                       src="https://www.facebook.com/tr?id=515808928618053&ev=PageView&noscript=1"
+        /></noscript>
+        <!-- End Facebook Pixel Code -->
+        <% } %>
+        <% if (APPCONFIG.GOOGLEANALYTICS_ID) { %>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', '<%= APPCONFIG.GOOGLEANALYTICS_ID %>', 'auto');
+            ga('create', '<%= APPCONFIG.GOOGLEANALYTICS_GLOBAL_ID %>', 'auto', {name: 'globalGA', cookieName: '_globalGA', allowLinker: true});
+            ga('require', 'linker');
+            ga('require', 'displayfeatures');
+            ga('linker:autoLink', ['btc.com']);
+        </script>
+        <% } %>
+        <% if (APPCONFIG.TWITTER_ID) { %>
+        <!-- Twitter universal website tag code -->
+        <script>
+            !function(e,n,u,a){e.twq||(a=e.twq=function(){a.exe?a.exe.apply(a,arguments):
+                    a.queue.push(arguments);},a.version='1',a.queue=[],t=n.createElement(u),
+                    t.async=!0,t.src='//static.ads-twitter.com/uwt.js',s=n.getElementsByTagName(u)[0],
+                    s.parentNode.insertBefore(t,s))}(window,document,'script');
+            // Insert Twitter Pixel ID and Standard Event data below
+            twq('init','<%= APPCONFIG.TWITTER_ID %>');
+            twq('track','PageView');
+        </script>
+        <!-- End Twitter universal website tag code -->
+        <% } %>
+        <% if (APPCONFIG.QUORA_ID) { %>
+        <!-- Quora Pixel Code (JS Helper) -->
+        <script>
+            !function(q,e,v,n,t,s){if(q.qp) return; n=q.qp=function(){n.qp?n.qp.apply(n,arguments):n.queue.push(arguments);}; n.queue=[];t=document.createElement(e);t.async=!0;t.src=v; s=document.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t,s);}(window, 'script', 'https://a.quora.com/qevents.js');
+            qp('init', '<%= APPCONFIG.QUORA_ID %>');
+        </script>
+        <% } %>
+        <% if (!APPCONFIG.DEBUG) { %>
+        <script>
+            // print warning for Self-XSS
+            var consoleWarning = function() {
+                if (window.console || "console" in window) {
+                    console.log("%c WARNING!!!", "color: red; font-size: 50px;");
+                    console.log("%c This browser feature is for developers only. Please do not copy-paste any code or run any scripts here." , "color: orange; font-size: 16px;");
+                    console.log("%c If somebody is asking you to copy-paste any code here you're most likely being targeted by a malicious attacker!" , "color: orange; font-size: 16px;");
+                    console.log("%c For more information, see: http://en.wikipedia.org/wiki/Self-XSS", "color: orange; font-size: 16px;");
+                }
+            };
+
+            // repeat warning every 60s, incase other things are logging to console in the meantime
+            setInterval(consoleWarning, 60000);
+            // print first warning after 1s, just to let any initial console logging happen from other things
+            setTimeout(consoleWarning, 1000);
+        </script>
+        <% } %>
+    </body>
+</html>

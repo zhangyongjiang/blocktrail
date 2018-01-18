@@ -1,0 +1,22 @@
+{
+  "name": "qrcode-canvas",
+  "description": "QRCode / 2d Barcode api support using canvas",
+  "version": "0.0.1",
+  "author": "Ryan Day <soldair@gmail.com>",
+  "keywords": [
+    "canvas",
+    "qrcode",
+    "barcode"
+  ],
+  "main": "./index.js",
+  "browser":"./lib/qrcode-draw.js",
+  "homepage": "http://github.com/blocktrail/qrcode-canvas",
+  "dependencies": {
+    "colors": "*",
+    "bops": "0.0.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/blocktrail/qrcode-canvas.git"
+  }
+}

@@ -1,0 +1,154 @@
+(function() {
+    "use strict";
+
+    angular.module("blocktrail.setup")
+        .controller("SettingsWalletBackupCtrl", SettingsWalletBackupCtrl);
+
+    function SettingsWalletBackupCtrl($scope, $btBackButtonDelegate, modalService, launchService,
+                                   settingsService, walletBackupService) {
+        var walletBackupData;
+        var readOnlySettingsData = settingsService.getReadOnlySettingsData();
+
+        $scope.isButtonEmailOrOpenClicked = false;
+        $scope.form = {
+            isBackupSaved: false
+        };
+
+        $scope.onNextStep = onNextStep;
+        $scope.emailBackupPdf = emailBackupPdf;
+        $scope.openBackupPdf = openBackupPdf;
+
+        init();
+
+        /**
+         * Initialize
+         */
+        function init() {
+            modalService.showSpinner();
+
+            launchService.getWalletBackup()
+                .then(function(data) {
+                    walletBackupData = data;
+                    modalService.hideSpinner();
+                });
+        }
+
+        /**
+         * Email the backup PDF
+         */
+        function emailBackupPdf() {
+            modalService.showSpinner();
+
+            var extraInfo = prepareExtraPdfInfo();
+
+            walletBackupService.emailBackupPdf(walletBackupData, extraInfo)
+                .then(function() {
+                    $scope.isButtonEmailOrOpenClicked = true;
+                    modalService.hideSpinner();
+                })
+                .catch(backupPdfErrorHandler);
+        }
+
+        /**
+         * Open the backup PDF
+         */
+        function openBackupPdf() {
+            var extraInfo = prepareExtraPdfInfo();
+
+            modalService.message({
+                title: "IMPORTANT",
+                body: ionic.Platform.isIOS() ? "BACKUP_EXPORT_PDF_IOS_INFO" : "BACKUP_EXPORT_PDF_ANDROID_INFO"
+            }).then(function() {
+                modalService.showSpinner();
+
+                walletBackupService.openBackupPdf(walletBackupData, extraInfo)
+                    .then(function() {
+                        $scope.isButtonEmailOrOpenClicked = true;
+                        modalService.hideSpinner();
+                    })
+                    .catch(backupPdfErrorHandler);
+            });
+        }
+
+        /**
+         * The backup PDF error handler
+         * @param e
+         */
+        function backupPdfErrorHandler(e) {
+            modalService.hideSpinner();
+
+            var alert = {};
+
+            if (e.status === 9 && e.message.startsWith("Activity not found: No Activity found to")) {
+                alert = { body: "BACKUP_CANT_OPEN" }
+            } else {
+                alert = { body: e.message ? e.message : e.toString() };
+            }
+
+            modalService.alert(alert);
+        }
+
+        /**
+         * Generate the PDF
+         */
+        function prepareExtraPdfInfo() {
+            var extraInfo = [];
+
+            if (readOnlySettingsData.username) {
+                extraInfo.push({ title: "Username", value: readOnlySettingsData.username });
+            }
+            if (readOnlySettingsData.email) {
+                extraInfo.push({ title: "Email", value: readOnlySettingsData.email });
+            }
+            if (walletBackupData.supportSecret) {
+                extraInfo.push({
+                    title: "Support Secret",
+                    subtitle: "this can be shared with helpdesk to proof ownership of backup document",
+                    value: walletBackupData.supportSecret
+                });
+            }
+
+            return extraInfo;
+        }
+
+        /**
+         * On the next step
+         */
+        function onNextStep() {
+            launchService.clearWalletBackup()
+                .then(function() {
+                    return modalService.confirm({
+                        title: "IMPORTANT",
+                        body: "BACKUP_OPTION_KEEP_ON_PHONE",
+                        buttonConfirm: "YES",
+                        buttonCancel: "NO"
+                    });
+                })
+                .then(function(dialogResult) {
+                    if (!dialogResult) {
+                        return walletBackupService.clearBackupPdf(walletBackupData.identifier)
+                            .catch(backupPdfClearErrorHandler);
+                    }
+                })
+                .then(function() {
+                    $btBackButtonDelegate.goBack();
+                });
+        }
+
+        /**
+         * Backup PDF clear error handler
+         * @param e
+         * @return {boolean}
+         */
+        function backupPdfClearErrorHandler(e) {
+            if(e && e.message === "NOT_FOUND_ERR") {
+                return true;
+            } else {
+                backupPdfErrorHandler();
+                // TODO discuss with Ruben, do we have to stop or continue
+                return true;
+            }
+        }
+    }
+
+})();

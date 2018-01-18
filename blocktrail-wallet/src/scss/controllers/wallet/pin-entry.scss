@@ -1,0 +1,55 @@
+.state-pin-login-screen {
+    background-color: $app-pin-color;
+
+    > ion-content {
+        background-color: $app-pin-color;
+    }
+
+    .form-pin-entry {
+        box-shadow: none;
+        background: transparent;
+
+        .item-input-pin {
+            display: block;
+            max-width: 140px;
+            margin: 10px auto;
+            padding: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
+
+            input {
+                padding: 2px;
+                width: 100%;
+                color: #e5e5e5;
+                text-align: center;
+            }
+        }
+
+        .item-button-pin {
+            background: none;
+            text-align: center;
+
+            button {
+                display: block;
+                width: 140px;
+                padding: 5px 0;
+                margin: 0 auto;
+                border: 1px solid rgba(255,255,255,0.2);
+                background: rgba(255,255,255,0.1);
+                color: #e5e5e5;
+            }
+        }
+    }
+
+    .logo-btc-com {
+        display: block;
+        margin: 0 auto;
+        width: 50%;
+    }
+
+    .title {
+        margin: 24px 0 0;
+        text-align: center;
+        color: #fff;
+    }
+}

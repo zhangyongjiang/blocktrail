@@ -1,0 +1,26 @@
+{
+  "name": "blocktrail-wallet-recovery-tool",
+  "version": "0.0.1",
+  "homepage": "https://github.com/blocktrail/wallet-recovery-tool",
+  "authors": [
+    "Oisin Conolly <oisin@oacdesigns.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.4.7",
+    "angular-ui": "angular-ui-bootstrap-bower#0.14.3",
+    "blocktrail-sdk": "3.3.2",
+    "bootstrap": "bootstrap-sass#3.3.5",
+    "html5-qrcode": "git://github.com/dwa012/html5-qrcode",
+    "pdfjs-dist": "~1.2.89",
+    "qrcode-decoder-js": ""
+  }
+}

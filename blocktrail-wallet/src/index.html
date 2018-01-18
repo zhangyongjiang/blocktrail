@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <meta http-equiv="Content-Security-Policy" content="default-src blob: data: gap: 'self' 'unsafe-eval' 'unsafe-inline' <%= CSP.join(" ") %>;">
+
+        <title></title>
+
+        <script>
+            window.NG_CORDOVA_MOCKS = <%= NG_CORDOVA_MOCKS %>;
+        </script>
+
+        <link id="css-ionic-app" href="css/ionic.btc-app.css" rel="stylesheet">
+
+        <script src="js/libs.js"></script>
+        <script src="js/asmcrypto.js"></script>
+        <script>
+            function onLoadWorkerLoadAsmCrypto(worker) {
+                var baseUrl = document.location.protocol + '//' + document.location.host;
+                if (document.location.pathname) {
+                    baseUrl += document.location.pathname.replace(/index\.html$/, '').replace(/\/$/, '');
+                    baseUrl += "/";
+                } else {
+                    baseUrl += "/";
+                }
+
+                worker.postMessage({
+                    method: 'importScripts',
+                    script: baseUrl + "js/asmcrypto.js"
+                });
+            }
+        </script>
+        <script src="js/sdk.js"></script>
+
+        <script src="js/ng-cordova.js"></script>
+        <script src="cordova.js"></script>
+
+        <script src="js/templates.js"></script>
+        <script src="js/app.js"></script>
+
+        <script>
+            angular.module('blocktrail.config', []).constant('CONFIG', <%= APPCONFIG_JSON %>);
+            angular.module('blocktrail.translations', []).constant('TRANSLATIONS', <%= TRANSLATIONS %>);
+        </script>
+
+        <script>
+            document.addEventListener("deviceready", function() {
+                console.log('deviceready');
+                angular.bootstrap(document.getElementById("bootstrapper"), ["blocktrail.wallet-bootstrapper"]);
+            }, false);
+        </script>
+    </head>
+
+    <body class="platform-cordova" ng-class="networkClassType">
+        <ion-nav-view>
+            <div class="loading-screen" ng-hide="hideLoadingScreen"
+                 style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: #35B89c; background: #fff; text-align: center; color: #fff;">
+
+                <div class="loader" ng-cloak>
+                    <span class="capitalise">{{ 'LOADING' | translate }}...</span>
+                </div>
+            </div>
+        </ion-nav-view>
+
+        <div id="bootstrapper"></div>
+    </body>
+
+    <script>
+        // cross-browser asynchronous script loading for zxcvbn.
+        // adapted from http://friendlybit.com/js/lazy-loading-asyncronous-javascript/
+        (function() {
+            var ZXCVBN_SRC = 'js/zxcvbn.js';
+
+            var async_load = function() {
+                var first, s;
+                s = document.createElement('script');
+                s.src = ZXCVBN_SRC;
+                s.type = 'text/javascript';
+                s.async = true;
+                first = document.getElementsByTagName('script')[0];
+                return first.parentNode.insertBefore(s, first);
+            };
+
+            if (window.attachEvent != null) {
+                window.attachEvent('onload', async_load);
+            } else {
+                window.addEventListener('load', async_load, false);
+            }
+
+        }).call(this);
+    </script>
+</html>

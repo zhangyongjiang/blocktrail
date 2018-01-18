@@ -1,0 +1,9 @@
+/vendor
+/tmp
+/composer.phar
+/.project
+/.altax
+/build
+/tests/tmp/*
+.DS_Store
+Thumbs.db

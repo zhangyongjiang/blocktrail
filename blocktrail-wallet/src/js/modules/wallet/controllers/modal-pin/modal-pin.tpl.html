@@ -1,0 +1,62 @@
+<div class="modal dialog-message">
+    <div class="va">
+        <div class="va-holder">
+            <div class="va-content">
+                <form
+                    type="form"
+                    class="card card-modal card-sm"
+                    name="confirmForm"
+                    ng-submit="confirm(form.pin, form.pinRepeat)"
+                >
+                    <div class="item-modal-prompt-content">
+                        <ion-item
+                            class="item-modal-content-holder item-text-wrap item-borderless"
+                            ng-if="title || body">
+                            <h2 ng-if="title" class="title">{{ title | translate }}</h2>
+                            <p ng-if="body" class="body">{{ body | translate }}</p>
+                        </ion-item>
+                        <div class="text-top-gradient"></div>
+                        <div class="text-bottom-gradient text-bottom-gradient-b1"></div>
+                    </div>
+
+                    <label class="item">
+                        <input
+                            class="password-mask"
+                            type="tel"
+                            pattern="[0-9]*"
+                            placeholder="{{ placeholderPin | translate }}"
+                            name="pin"
+                            ng-model="form.pin"
+                            auto-focus
+                        >
+                    </label>
+
+                    <label class="item" ng-if="isRepeatPin">
+                        <input
+                            class="password-mask"
+                            type="tel"
+                            pattern="[0-9]*"
+                            placeholder="{{ placeholderRepeatPin | translate }}"
+                            name="pinRepeat"
+                            ng-model="form.pinRepeat"
+                        >
+                    </label>
+
+                    <div class="row action-buttons">
+                        <div class="col">
+                            <button class="button button-block" ng-click="cancel()">{{ "CANCEL" | translate }}
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button
+                                type="submit"
+                                class="button button-block"
+                            >{{ "CONFIRM" | translate }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

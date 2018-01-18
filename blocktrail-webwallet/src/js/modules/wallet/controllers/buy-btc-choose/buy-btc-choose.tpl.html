@@ -1,0 +1,24 @@
+<div class="appPage">
+    <button class="btn btn-alt btn-hidden" style="float: right;" ng-click="resetBuyBTC()"></button>
+
+    <div class="row">
+        <div class="col-sm-5" ng-show="simplexEnabled">
+            <h2>{{ 'BUYBTC_CREDIT_CARDS' | translate }}</h2>
+            <div class="buybtc-list list-group">
+                <div class="partner-btn btn btn-lg btn-default" ng-click="goBuyBTCState('simplex')" style="height: 50px; width: 200px">
+                    <span class="sentence-case"><i class="bticon bticon-right-open"></i></span>
+                    <img ng-src="{{ CONFIG.STATICSURL }}/img/simplex-logo.png" alt="Simplex" title="Simplex" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5" ng-show="glideraEnabled && network == 'BTC'">
+            <h2 class="header-inline">{{ 'BUYBTC_BANK_WIRE' | translate }}</h2> <span style="color: gray">(USA)</span>
+            <div class="buybtc-list list-group">
+                <div class="partner-btn btn btn-lg btn-default" ng-click="goGlideraBrowser()" style="height: 50px; width: 200px">
+                    <span class="sentence-case"><i class="bticon bticon-right-open"></i></span>
+                    <img ng-src="{{ CONFIG.STATICSURL }}/img/glidera-bright.png" alt="Glidera" title="Glidera" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

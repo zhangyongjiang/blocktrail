@@ -1,0 +1,148 @@
+<button type="button" class="close" ng-click="dismiss();" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+</button>
+
+<div class="row">
+    <div class="col-xs-10 col-xs-offset-1 text-center">
+        <div style="margin-top: 25px; margin-bottom: 25px;">
+            <h2>{{ 'SWEEP_TITLE' | translate }}</h2>
+            <div ng-if="form.step === STEPS.WELCOME">
+                <p>
+                    {{ 'SWEEP_INFO' | translate : { network: CONFIG.NETWORKS[walletData.networkType].NETWORK } }}
+                </p>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <p class="help-block">
+                            {{ 'SWEEP_SUPPORTED' | translate }}: Blockchain.info, Mycelium, Jaxx
+                        </p>
+                    </div>
+                    <div class="col-xs-6">
+                        <p class="help-block">
+                            {{ 'SWEEP_WIF_SUBTITLE' | translate }}
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <button class="form-control btn btn-alt btn-primary" ng-click="form.step = STEPS.BIP44">
+                            {{ 'SWEEP_BIP44' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-xs-6">
+                        <button class="form-control btn btn-alt btn-primary" ng-click="form.step = STEPS.WIF">
+                            {{ 'SWEEP_WIF' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="form.step === STEPS.BIP44">
+                <p>
+                    {{ 'SWEEP_INFO' | translate : { network: CONFIG.NETWORKS[walletData.networkType].NETWORK } }}
+                </p>
+                <p class="help-block">
+                    {{ 'SWEEP_SUPPORTED' | translate }}: Blockchain.info, Mycelium, Jaxx
+                </p>
+                <form class="form">
+                    <div class="row">
+                        <div class="form-group form-group-lg">
+                            <label class="control-label">
+                                {{ 'BACKUP_MNEMONIC' | translate }}
+                            </label>
+                            <textarea class="form-control"
+                                      style="resize: vertical; margin-bottom: 5px;"
+                                      placeholder="fetch cash winner system welcome ..."
+                                      rows="2"
+                                      cols="50"
+                                      name="inputMnemonic"
+                                      ng-model="form.mnemonic"
+                                      typeahead="word for word in bip39EN | filterERS : $viewValue | limitTo:4">
+                            </textarea>
+                        </div>
+
+                        <div class="form-group form-group-lg form-group-buttons">
+                            <button class="form-control btn btn-alt btn-primary" ng-disabled="working" ng-click="startSweeping()">{{ 'NEXT' | translate }}</button>
+                            <div ng-if="working && !discovering">
+                                <loading-spinner></loading-spinner>
+                                {{ 'PLEASE_WAIT' | translate }}
+                            </div>
+                            <div ng-if="working && discovering">
+                                <loading-spinner></loading-spinner>
+                                {{ 'DISCOVERING_COINS' | translate }}
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div ng-if="form.step === STEPS.WIF">
+                <p>
+                    {{ 'SWEEP_INFO' | translate : { network: CONFIG.NETWORKS[walletData.networkType].NETWORK } }}
+                </p>
+                <form class="form">
+                    <div class="row">
+                        <div class="form-group form-group-lg">
+                            <label class="control-label">
+                                {{ 'SWEEP_WIF_INPUT' | translate }}
+                            </label>
+                            <textarea class="form-control"
+                                      style="resize: vertical; margin-bottom: 5px;"
+                                      placeholder="{{ 'SWEEP_WIF_PLACEHOLDER' | translate }}"
+                                      rows="8"
+                                      cols="80"
+                                      name="inputWIF"
+                                      ng-model="form.inputWIF">
+                            </textarea>
+                        </div>
+
+                        <div class="form-group form-group-lg form-group-buttons">
+                            <button class="form-control btn btn-alt btn-primary" ng-disabled="working" ng-click="startSweeping()">{{ 'NEXT' | translate }}</button>
+                            <div ng-if="working && !discovering">
+                                <loading-spinner></loading-spinner>
+                                {{ 'PLEASE_WAIT' | translate }}
+                            </div>
+                            <div ng-if="working && discovering">
+                                <loading-spinner></loading-spinner>
+                                {{ 'DISCOVERING_COINS' | translate }}
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div ng-if="form.step === STEPS.SWEEP">
+
+                 <span translate="SWEEPING_CONFIRM_MSG"
+                       translate-value-amount="{{ displaySweepData.totalValue | satoshiToCoin : walletData.networkType : 8 : false : 'hide' }}"
+                       translate-value-fee="{{ displaySweepData.totalFeePaid | satoshiToCoin : walletData.networkType : 8 : false : 'hide' }}"
+                       translate-value-network="{{ CONFIG.NETWORKS[walletData.networkType].NETWORK }}">
+                </span>
+
+                <form class="form">
+                    <div class="form-group form-group-lg form-group-buttons">
+                        <button class="form-control btn btn-alt btn-primary" ng-disabled="working" ng-click="publishRawTransaction()">{{ 'SEND' | translate }}</button>
+                        <div ng-if="working">
+                            <loading-spinner></loading-spinner>
+                            {{ 'PLEASE_WAIT' | translate }}
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div ng-if="form.step === STEPS.PUBLISH">
+                <h4>{{ 'DONE' | translate }}!</h4>
+                <p>
+                    {{ 'SWEEP_COMPLETED' | translate : { ticker: CONFIG.NETWORKS[walletData.networkType].TICKER_LONG } }}
+                </p>
+                <p class="help-block">
+                    <a href="{{ CONFIG.NETWORKS[walletData.networkType].EXPLORER_TX_URL }}/{{ sweepData.txId }}" target="_blank">{{ 'TX_INFO_MORE_LINK' | translate }}</a>
+                </p>
+
+                <form class="form">
+                    <div class="form-group form-group-lg form-group-buttons">
+                        <button class="form-control btn btn-alt btn-default" ng-click="dismiss()">{{ 'CLOSE' | translate }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

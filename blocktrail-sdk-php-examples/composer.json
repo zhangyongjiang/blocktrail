@@ -1,0 +1,14 @@
+{
+    "name": "blocktrail/blocktrail-sdk-example",
+    "description": "Examples on how to use the BlockTrail PHP SDK.",
+    "license": "MIT",
+    "require": {
+        "blocktrail/blocktrail-sdk": "~1.2"
+    },
+    "authors": [
+        {
+            "name": "Ruben de Vries",
+            "email": "ruben@rubensayshi.com"
+        }
+    ]
+}

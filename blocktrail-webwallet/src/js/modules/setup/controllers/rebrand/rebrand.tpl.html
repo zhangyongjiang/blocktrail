@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+            <div class="appWrapper">
+                <h1 class="pageTitle text-center">{{ 'PSA_REBRAND_TITLE' | translate }}</h1>
+                <div class="formContainer text-center" style="padding: 20px;font-size:16px;">
+                    <div ng-bind-html="'PSA_REBRAND_BODY' | translate | nl2br"></div>
+
+                    <span>{{ 'PSA_REBRAND_BLOG_HREF_PRE' | translate }}</span>
+                    <a href="https://blog.blocktrail.com/2016/07/blocktrail-is-now-a-part-of-the-bitmain-family/" browse-to>{{ 'PSA_REBRAND_BLOG_HREF' | translate }}</a>
+
+                    <br />
+                    <br />
+
+                    <button class="btn-block btn btn-primary" ui-sref="{{ goto || 'app.setup.register' }}">{{ 'PSA_REBRAND_OK' | translate }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

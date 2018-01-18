@@ -1,0 +1,95 @@
+{
+    "DEBUG": false,
+    "MINIFY": true,
+    "POUCHDB_DRIVER": null,
+    "API_HOST": "api.blocktrail.com",
+    "API_HTTPS": true,
+
+    "FORCE_GLIDERA_ENABLED": false,
+    "FORCE_SIMPLEX_ENABLED": false,
+
+    // @deprecated
+    // until we have a cleaner solution for the API endpoints, should either by BTC or tBTC
+    "API_NETWORK": "BTC",
+
+    "NETWORKS_ENABLED": ["BTC", "BCC"],
+
+    "NETWORKS": {
+        "BTC": {
+            "NETWORK": "BTC",
+            "NETWORK_LONG": "Bitcoin",
+            "TICKER": "BTC",
+            "TICKER_LONG": "Bitcoin",
+            "TX_FILTER_MIN_BLOCK_HEIGHT": null,
+            "BUYBTC": true,
+            "PRIOBOOST": false,
+            "EXPLORER_ADDRESS_URL": "https://btc.com",
+            "EXPLORER_TX_URL": "https://btc.com",
+            "CASHADDRESS": false,
+            "URIPREFIX": "bitcoin:"
+        },
+        "BCC": {
+            "NETWORK": "BCC",
+            "NETWORK_LONG": "Bitcoin Cash",
+            "TICKER": "BCH",
+            "TICKER_LONG": "Bitcoin Cash",
+            "TX_FILTER_MIN_BLOCK_HEIGHT": 478559,
+            "BUYBTC": false,
+            "PRIOBOOST": false,
+            "EXPLORER_ADDRESS_URL": "https://bch.btc.com",
+            "EXPLORER_TX_URL": "https://bch.btc.com",
+            "CASHADDRESS": true,
+            "URIPREFIX": "bitcoincash:"
+        },
+        "tBTC": {
+            "NETWORK": "tBTC",
+            "NETWORK_LONG": "Bitcoin TESTNET",
+            "TICKER": "tBTC",
+            "TICKER_LONG": "Bitcoin TESTNET",
+            "TX_FILTER_MIN_BLOCK_HEIGHT": null,
+            "BUYBTC": true,
+            "PRIOBOOST": false,
+            "EXPLORER_ADDRESS_URL": "https://tchain.btc.com",
+            "EXPLORER_TX_URL": "https://tchain.btc.com",
+            "CASHADDRESS": false,
+            "URIPREFIX": "bitcoin:"
+        },
+        "tBCC": {
+            "NETWORK": "tBCC",
+            "NETWORK_LONG": "Bitcoin Cash TESTNET",
+            "TICKER": "tBCH",
+            "TICKER_LONG": "Bitcoin Cash TESTNET",
+            "TX_FILTER_MIN_BLOCK_HEIGHT": null,
+            "BUYBTC": false,
+            "PRIOBOOST": false,
+            "EXPLORER_ADDRESS_URL": "https://www.blocktrail.com/tBCC/address",
+            "EXPLORER_TX_URL": "https://www.blocktrail.com/tBCC/tx",
+            "CASHADDRESS": true,
+            "URIPREFIX": "bitcoincash:"
+        }
+    },
+
+    "EXTRA_LANGUAGES": ["es", "nl", "ru", "fr", "hi", "sw", "cn"],
+    "CURRENCIES": ["BTC", "BCC", "tBTC", "tBCC", "USD", "EUR", "GBP", "CNY"],
+
+    "STATICSDIR": "dev",
+    "STATICSDIR_PREFIX": null,
+
+    "FALLBACK_LANGUAGE": false,
+
+    "DEFAULT_WALLET_VERSION": "v3",
+
+    "REQUIRED_PASSWORD_STRENGTH": 2,
+
+    "HOMEPAGE_URL": "https://btc.com",
+    "WALLET_URL": "https://wallet.btc.com",
+    "MIRROR_WALLET_URL": "https://bcc-wallet.btc.com",
+    "DEVELOPERS_URL": "https://www.blocktrail.com/api",
+
+    "GLIDERA_URL": "https://www.glidera.io",
+    "BITONIC_URL": "https://bitonic.nl",
+
+    "DEFAULT_IDENTIFIER": "mywallet",
+    
+    "NULL": null // just here so we can have a trailing , on every line
+}

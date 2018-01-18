@@ -1,0 +1,15 @@
+node_modules/
+appconfig.json
+.appconfig.json
+
+platforms/android/assets/www/*
+platforms/ios/www/*
+platforms/ios/cordova/console.log
+platforms/android/CordovaLib/build
+
+tmp/*
+
+src/fontello/*
+!src/fontello/font
+!src/fontello/config.json
+!src/fontello/css/fontello.scss

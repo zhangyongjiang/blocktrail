@@ -1,0 +1,13 @@
+index.html
+
+# files downloaded from fontello before we copy them to the right dirs
+fontello
+
+# staticdirs
+*/templates
+*/css
+*/img
+*/favicon.ico
+*/js
+*/font
+favicon.ico
